@@ -4,7 +4,7 @@ include(CMakeDependentOption)
 include(CheckCXXCompilerFlag)
 
 
-macro(myproject_supports_sanitizers)
+macro(Izgrad_supports_sanitizers)
   if((CMAKE_CXX_COMPILER_ID MATCHES ".*Clang.*" OR CMAKE_CXX_COMPILER_ID MATCHES ".*GNU.*") AND NOT WIN32)
     set(SUPPORTS_UBSAN ON)
   else()
@@ -18,183 +18,183 @@ macro(myproject_supports_sanitizers)
   endif()
 endmacro()
 
-macro(myproject_setup_options)
-  option(myproject_ENABLE_HARDENING "Enable hardening" ON)
-  option(myproject_ENABLE_COVERAGE "Enable coverage reporting" OFF)
+macro(Izgrad_setup_options)
+  option(Izgrad_ENABLE_HARDENING "Enable hardening" ON)
+  option(Izgrad_ENABLE_COVERAGE "Enable coverage reporting" OFF)
   cmake_dependent_option(
-    myproject_ENABLE_GLOBAL_HARDENING
+    Izgrad_ENABLE_GLOBAL_HARDENING
     "Attempt to push hardening options to built dependencies"
     ON
-    myproject_ENABLE_HARDENING
+    Izgrad_ENABLE_HARDENING
     OFF)
 
-  myproject_supports_sanitizers()
+  Izgrad_supports_sanitizers()
 
-  if(NOT PROJECT_IS_TOP_LEVEL OR myproject_PACKAGING_MAINTAINER_MODE)
-    option(myproject_ENABLE_IPO "Enable IPO/LTO" OFF)
-    option(myproject_WARNINGS_AS_ERRORS "Treat Warnings As Errors" OFF)
-    option(myproject_ENABLE_USER_LINKER "Enable user-selected linker" OFF)
-    option(myproject_ENABLE_SANITIZER_ADDRESS "Enable address sanitizer" OFF)
-    option(myproject_ENABLE_SANITIZER_LEAK "Enable leak sanitizer" OFF)
-    option(myproject_ENABLE_SANITIZER_UNDEFINED "Enable undefined sanitizer" OFF)
-    option(myproject_ENABLE_SANITIZER_THREAD "Enable thread sanitizer" OFF)
-    option(myproject_ENABLE_SANITIZER_MEMORY "Enable memory sanitizer" OFF)
-    option(myproject_ENABLE_UNITY_BUILD "Enable unity builds" OFF)
-    option(myproject_ENABLE_CLANG_TIDY "Enable clang-tidy" OFF)
-    option(myproject_ENABLE_CPPCHECK "Enable cpp-check analysis" OFF)
-    option(myproject_ENABLE_PCH "Enable precompiled headers" OFF)
-    option(myproject_ENABLE_CACHE "Enable ccache" OFF)
+  if(NOT PROJECT_IS_TOP_LEVEL OR Izgrad_PACKAGING_MAINTAINER_MODE)
+    option(Izgrad_ENABLE_IPO "Enable IPO/LTO" OFF)
+    option(Izgrad_WARNINGS_AS_ERRORS "Treat Warnings As Errors" OFF)
+    option(Izgrad_ENABLE_USER_LINKER "Enable user-selected linker" OFF)
+    option(Izgrad_ENABLE_SANITIZER_ADDRESS "Enable address sanitizer" OFF)
+    option(Izgrad_ENABLE_SANITIZER_LEAK "Enable leak sanitizer" OFF)
+    option(Izgrad_ENABLE_SANITIZER_UNDEFINED "Enable undefined sanitizer" OFF)
+    option(Izgrad_ENABLE_SANITIZER_THREAD "Enable thread sanitizer" OFF)
+    option(Izgrad_ENABLE_SANITIZER_MEMORY "Enable memory sanitizer" OFF)
+    option(Izgrad_ENABLE_UNITY_BUILD "Enable unity builds" OFF)
+    option(Izgrad_ENABLE_CLANG_TIDY "Enable clang-tidy" OFF)
+    option(Izgrad_ENABLE_CPPCHECK "Enable cpp-check analysis" OFF)
+    option(Izgrad_ENABLE_PCH "Enable precompiled headers" OFF)
+    option(Izgrad_ENABLE_CACHE "Enable ccache" OFF)
   else()
-    option(myproject_ENABLE_IPO "Enable IPO/LTO" ON)
-    option(myproject_WARNINGS_AS_ERRORS "Treat Warnings As Errors" ON)
-    option(myproject_ENABLE_USER_LINKER "Enable user-selected linker" OFF)
-    option(myproject_ENABLE_SANITIZER_ADDRESS "Enable address sanitizer" ${SUPPORTS_ASAN})
-    option(myproject_ENABLE_SANITIZER_LEAK "Enable leak sanitizer" OFF)
-    option(myproject_ENABLE_SANITIZER_UNDEFINED "Enable undefined sanitizer" ${SUPPORTS_UBSAN})
-    option(myproject_ENABLE_SANITIZER_THREAD "Enable thread sanitizer" OFF)
-    option(myproject_ENABLE_SANITIZER_MEMORY "Enable memory sanitizer" OFF)
-    option(myproject_ENABLE_UNITY_BUILD "Enable unity builds" OFF)
-    option(myproject_ENABLE_CLANG_TIDY "Enable clang-tidy" ON)
-    option(myproject_ENABLE_CPPCHECK "Enable cpp-check analysis" ON)
-    option(myproject_ENABLE_PCH "Enable precompiled headers" OFF)
-    option(myproject_ENABLE_CACHE "Enable ccache" ON)
+    option(Izgrad_ENABLE_IPO "Enable IPO/LTO" ON)
+    option(Izgrad_WARNINGS_AS_ERRORS "Treat Warnings As Errors" ON)
+    option(Izgrad_ENABLE_USER_LINKER "Enable user-selected linker" OFF)
+    option(Izgrad_ENABLE_SANITIZER_ADDRESS "Enable address sanitizer" ${SUPPORTS_ASAN})
+    option(Izgrad_ENABLE_SANITIZER_LEAK "Enable leak sanitizer" OFF)
+    option(Izgrad_ENABLE_SANITIZER_UNDEFINED "Enable undefined sanitizer" ${SUPPORTS_UBSAN})
+    option(Izgrad_ENABLE_SANITIZER_THREAD "Enable thread sanitizer" OFF)
+    option(Izgrad_ENABLE_SANITIZER_MEMORY "Enable memory sanitizer" OFF)
+    option(Izgrad_ENABLE_UNITY_BUILD "Enable unity builds" OFF)
+    option(Izgrad_ENABLE_CLANG_TIDY "Enable clang-tidy" ON)
+    option(Izgrad_ENABLE_CPPCHECK "Enable cpp-check analysis" ON)
+    option(Izgrad_ENABLE_PCH "Enable precompiled headers" OFF)
+    option(Izgrad_ENABLE_CACHE "Enable ccache" ON)
   endif()
 
   if(NOT PROJECT_IS_TOP_LEVEL)
     mark_as_advanced(
-      myproject_ENABLE_IPO
-      myproject_WARNINGS_AS_ERRORS
-      myproject_ENABLE_USER_LINKER
-      myproject_ENABLE_SANITIZER_ADDRESS
-      myproject_ENABLE_SANITIZER_LEAK
-      myproject_ENABLE_SANITIZER_UNDEFINED
-      myproject_ENABLE_SANITIZER_THREAD
-      myproject_ENABLE_SANITIZER_MEMORY
-      myproject_ENABLE_UNITY_BUILD
-      myproject_ENABLE_CLANG_TIDY
-      myproject_ENABLE_CPPCHECK
-      myproject_ENABLE_COVERAGE
-      myproject_ENABLE_PCH
-      myproject_ENABLE_CACHE)
+      Izgrad_ENABLE_IPO
+      Izgrad_WARNINGS_AS_ERRORS
+      Izgrad_ENABLE_USER_LINKER
+      Izgrad_ENABLE_SANITIZER_ADDRESS
+      Izgrad_ENABLE_SANITIZER_LEAK
+      Izgrad_ENABLE_SANITIZER_UNDEFINED
+      Izgrad_ENABLE_SANITIZER_THREAD
+      Izgrad_ENABLE_SANITIZER_MEMORY
+      Izgrad_ENABLE_UNITY_BUILD
+      Izgrad_ENABLE_CLANG_TIDY
+      Izgrad_ENABLE_CPPCHECK
+      Izgrad_ENABLE_COVERAGE
+      Izgrad_ENABLE_PCH
+      Izgrad_ENABLE_CACHE)
   endif()
 
-  myproject_check_libfuzzer_support(LIBFUZZER_SUPPORTED)
-  if(LIBFUZZER_SUPPORTED AND (myproject_ENABLE_SANITIZER_ADDRESS OR myproject_ENABLE_SANITIZER_THREAD OR myproject_ENABLE_SANITIZER_UNDEFINED))
+  Izgrad_check_libfuzzer_support(LIBFUZZER_SUPPORTED)
+  if(LIBFUZZER_SUPPORTED AND (Izgrad_ENABLE_SANITIZER_ADDRESS OR Izgrad_ENABLE_SANITIZER_THREAD OR Izgrad_ENABLE_SANITIZER_UNDEFINED))
     set(DEFAULT_FUZZER ON)
   else()
     set(DEFAULT_FUZZER OFF)
   endif()
 
-  option(myproject_BUILD_FUZZ_TESTS "Enable fuzz testing executable" ${DEFAULT_FUZZER})
+  option(Izgrad_BUILD_FUZZ_TESTS "Enable fuzz testing executable" ${DEFAULT_FUZZER})
 
 endmacro()
 
-macro(myproject_global_options)
-  if(myproject_ENABLE_IPO)
+macro(Izgrad_global_options)
+  if(Izgrad_ENABLE_IPO)
     include(cmake/InterproceduralOptimization.cmake)
-    myproject_enable_ipo()
+    Izgrad_enable_ipo()
   endif()
 
-  myproject_supports_sanitizers()
+  Izgrad_supports_sanitizers()
 
-  if(myproject_ENABLE_HARDENING AND myproject_ENABLE_GLOBAL_HARDENING)
+  if(Izgrad_ENABLE_HARDENING AND Izgrad_ENABLE_GLOBAL_HARDENING)
     include(cmake/Hardening.cmake)
     if(NOT SUPPORTS_UBSAN 
-       OR myproject_ENABLE_SANITIZER_UNDEFINED
-       OR myproject_ENABLE_SANITIZER_ADDRESS
-       OR myproject_ENABLE_SANITIZER_THREAD
-       OR myproject_ENABLE_SANITIZER_LEAK)
+       OR Izgrad_ENABLE_SANITIZER_UNDEFINED
+       OR Izgrad_ENABLE_SANITIZER_ADDRESS
+       OR Izgrad_ENABLE_SANITIZER_THREAD
+       OR Izgrad_ENABLE_SANITIZER_LEAK)
       set(ENABLE_UBSAN_MINIMAL_RUNTIME FALSE)
     else()
       set(ENABLE_UBSAN_MINIMAL_RUNTIME TRUE)
     endif()
-    message("${myproject_ENABLE_HARDENING} ${ENABLE_UBSAN_MINIMAL_RUNTIME} ${myproject_ENABLE_SANITIZER_UNDEFINED}")
-    myproject_enable_hardening(myproject_options ON ${ENABLE_UBSAN_MINIMAL_RUNTIME})
+    message("${Izgrad_ENABLE_HARDENING} ${ENABLE_UBSAN_MINIMAL_RUNTIME} ${Izgrad_ENABLE_SANITIZER_UNDEFINED}")
+    Izgrad_enable_hardening(Izgrad_options ON ${ENABLE_UBSAN_MINIMAL_RUNTIME})
   endif()
 endmacro()
 
-macro(myproject_local_options)
+macro(Izgrad_local_options)
   if(PROJECT_IS_TOP_LEVEL)
     include(cmake/StandardProjectSettings.cmake)
   endif()
 
-  add_library(myproject_warnings INTERFACE)
-  add_library(myproject_options INTERFACE)
+  add_library(Izgrad_warnings INTERFACE)
+  add_library(Izgrad_options INTERFACE)
 
   include(cmake/CompilerWarnings.cmake)
-  myproject_set_project_warnings(
-    myproject_warnings
-    ${myproject_WARNINGS_AS_ERRORS}
+  Izgrad_set_project_warnings(
+    Izgrad_warnings
+    ${Izgrad_WARNINGS_AS_ERRORS}
     ""
     ""
     ""
     "")
 
-  if(myproject_ENABLE_USER_LINKER)
+  if(Izgrad_ENABLE_USER_LINKER)
     include(cmake/Linker.cmake)
-    myproject_configure_linker(myproject_options)
+    Izgrad_configure_linker(Izgrad_options)
   endif()
 
   include(cmake/Sanitizers.cmake)
-  myproject_enable_sanitizers(
-    myproject_options
-    ${myproject_ENABLE_SANITIZER_ADDRESS}
-    ${myproject_ENABLE_SANITIZER_LEAK}
-    ${myproject_ENABLE_SANITIZER_UNDEFINED}
-    ${myproject_ENABLE_SANITIZER_THREAD}
-    ${myproject_ENABLE_SANITIZER_MEMORY})
+  Izgrad_enable_sanitizers(
+    Izgrad_options
+    ${Izgrad_ENABLE_SANITIZER_ADDRESS}
+    ${Izgrad_ENABLE_SANITIZER_LEAK}
+    ${Izgrad_ENABLE_SANITIZER_UNDEFINED}
+    ${Izgrad_ENABLE_SANITIZER_THREAD}
+    ${Izgrad_ENABLE_SANITIZER_MEMORY})
 
-  set_target_properties(myproject_options PROPERTIES UNITY_BUILD ${myproject_ENABLE_UNITY_BUILD})
+  set_target_properties(Izgrad_options PROPERTIES UNITY_BUILD ${Izgrad_ENABLE_UNITY_BUILD})
 
-  if(myproject_ENABLE_PCH)
+  if(Izgrad_ENABLE_PCH)
     target_precompile_headers(
-      myproject_options
+      Izgrad_options
       INTERFACE
       <vector>
       <string>
       <utility>)
   endif()
 
-  if(myproject_ENABLE_CACHE)
+  if(Izgrad_ENABLE_CACHE)
     include(cmake/Cache.cmake)
-    myproject_enable_cache()
+    Izgrad_enable_cache()
   endif()
 
   include(cmake/StaticAnalyzers.cmake)
-  if(myproject_ENABLE_CLANG_TIDY)
-    myproject_enable_clang_tidy(myproject_options ${myproject_WARNINGS_AS_ERRORS})
+  if(Izgrad_ENABLE_CLANG_TIDY)
+    Izgrad_enable_clang_tidy(Izgrad_options ${Izgrad_WARNINGS_AS_ERRORS})
   endif()
 
-  if(myproject_ENABLE_CPPCHECK)
-    myproject_enable_cppcheck(${myproject_WARNINGS_AS_ERRORS} "" # override cppcheck options
+  if(Izgrad_ENABLE_CPPCHECK)
+    Izgrad_enable_cppcheck(${Izgrad_WARNINGS_AS_ERRORS} "" # override cppcheck options
     )
   endif()
 
-  if(myproject_ENABLE_COVERAGE)
+  if(Izgrad_ENABLE_COVERAGE)
     include(cmake/Tests.cmake)
-    myproject_enable_coverage(myproject_options)
+    Izgrad_enable_coverage(Izgrad_options)
   endif()
 
-  if(myproject_WARNINGS_AS_ERRORS)
+  if(Izgrad_WARNINGS_AS_ERRORS)
     check_cxx_compiler_flag("-Wl,--fatal-warnings" LINKER_FATAL_WARNINGS)
     if(LINKER_FATAL_WARNINGS)
       # This is not working consistently, so disabling for now
-      # target_link_options(myproject_options INTERFACE -Wl,--fatal-warnings)
+      # target_link_options(Izgrad_options INTERFACE -Wl,--fatal-warnings)
     endif()
   endif()
 
-  if(myproject_ENABLE_HARDENING AND NOT myproject_ENABLE_GLOBAL_HARDENING)
+  if(Izgrad_ENABLE_HARDENING AND NOT Izgrad_ENABLE_GLOBAL_HARDENING)
     include(cmake/Hardening.cmake)
     if(NOT SUPPORTS_UBSAN 
-       OR myproject_ENABLE_SANITIZER_UNDEFINED
-       OR myproject_ENABLE_SANITIZER_ADDRESS
-       OR myproject_ENABLE_SANITIZER_THREAD
-       OR myproject_ENABLE_SANITIZER_LEAK)
+       OR Izgrad_ENABLE_SANITIZER_UNDEFINED
+       OR Izgrad_ENABLE_SANITIZER_ADDRESS
+       OR Izgrad_ENABLE_SANITIZER_THREAD
+       OR Izgrad_ENABLE_SANITIZER_LEAK)
       set(ENABLE_UBSAN_MINIMAL_RUNTIME FALSE)
     else()
       set(ENABLE_UBSAN_MINIMAL_RUNTIME TRUE)
     endif()
-    myproject_enable_hardening(myproject_options OFF ${ENABLE_UBSAN_MINIMAL_RUNTIME})
+    Izgrad_enable_hardening(Izgrad_options OFF ${ENABLE_UBSAN_MINIMAL_RUNTIME})
   endif()
 
 endmacro()
